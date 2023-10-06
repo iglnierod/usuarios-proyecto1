@@ -1,16 +1,22 @@
 package model;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class User {
     private String name;
     private String passwordHash;
     private int age;
     private String email;
 
-    public User(String name, String passwordHash, int age, String email) {
+    public User(String name, String password, int age, String email) {
         this.name = name;
-        this.passwordHash = passwordHash;
+        this.passwordHash = setPasswordHash(password);
         this.age = age;
         this.email = email;
+    }
+
+    private String setPasswordHash(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     @Override
