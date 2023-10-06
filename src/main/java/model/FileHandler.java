@@ -1,6 +1,7 @@
 package model;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FileHandler {
@@ -13,10 +14,12 @@ public class FileHandler {
         createFile();
     }
 
-    public void createFile() {
+    private void createFile() {
         // If file exists then check header
         if (file.exists()) {
-            checkHeader();
+            if (checkHeader() == true) {
+                loadUsers();
+            }
             return;
         }
         // If file doesn't exist creates it and writes header and admin user
@@ -29,12 +32,13 @@ public class FileHandler {
         }
     }
 
-    public boolean checkHeader() {
+    private boolean checkHeader() {
         try (BufferedInputStream bif = new BufferedInputStream(new FileInputStream(this.file))) {
             byte[] readBytes = bif.readNBytes(this.header.length);
             int result = Arrays.compare(this.header, readBytes);
             // If result == 0 -> this.header == readBytes
-            /**/System.out.println(result == 0);
+            /**/
+            System.out.println(result == 0);
             return result == 0;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -45,7 +49,7 @@ public class FileHandler {
         }
     }
 
-    public void writeHeader() {
+    private void writeHeader() {
         try (FileOutputStream fos = new FileOutputStream(this.file)) {
             // Writes header bytes into the file
             fos.write(this.header);
@@ -54,5 +58,29 @@ public class FileHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadUsers() {
+        try (FileInputStream fis = new FileInputStream(this.file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            // Skips over the header bytes
+            ois.skip(this.header.length);
+            // Reads list of users from file and casts it
+            ArrayList<User> users = (ArrayList<User>) ois.readObject();
+            /**/
+            // Show users loaded from file
+            System.out.println("~~~~ USUARIOS CARGADOS DESDE ARCHIVO ~~~~");
+            System.out.println(users);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void addAdminUser() {
+
     }
 }
