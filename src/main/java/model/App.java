@@ -5,4 +5,7 @@ public class App {
     private Users users;
     private Session session;
 
+    public App() {
+        new FileHandler();
+    }
 }
