@@ -2,7 +2,9 @@ package model;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String name;
     private String passwordHash;
     private int age;
@@ -18,6 +20,10 @@ public class User {
     private String setPasswordHash(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
+
+//    private String getPasswordHash() {
+//
+//    }
 
     @Override
     public String toString() {
