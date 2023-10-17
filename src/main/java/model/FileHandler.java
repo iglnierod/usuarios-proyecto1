@@ -9,10 +9,10 @@ public class FileHandler {
     private File file;
     private byte[] header;
 
-    private HashMap<String, User> users;
+    private Users users = new Users();
 
     public FileHandler() {
-        file = new File("usuarios.bin");
+        file = new File("usuarios5.bin");
         header = new byte[]{(byte) 0xFF, (byte) 0xEE, (byte) 0x20, (byte) 0x23, (byte) 0xEE, (byte) 0xFF};
         createFile();
     }
@@ -32,8 +32,9 @@ public class FileHandler {
         try {
             file.createNewFile();
             writeHeader();
-            HashMap<String, User> users = new HashMap<>();
-            users.put("admin", new User("admin", "admin", 0, "admin@dam.local"));
+            this.users.addUser(new User("admin", "admin", 0, "admin@dam.local"));
+            this.users.addUser(new User("test", "test", 0, "test@test.local"));
+
             writeObject(users);
         } catch (IOException e) {
             System.out.println("ERROR: No se ha podido crear el archivo " + file.getName());
@@ -67,10 +68,11 @@ public class FileHandler {
         }
     }
 
-    private void writeObject(HashMap<String, User> users) {
+    private void writeObject(Users users) {
         try (ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(this.file, true))) {
             ois.writeObject(users);
-            System.out.println("Se ha escrito el objeto: " + users);
+            System.out.println("Se ha escrito el objeto:");
+            System.out.println(users);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -78,13 +80,13 @@ public class FileHandler {
         }
     }
 
-    private HashMap<String, User> loadUsers() {
+    private Users loadUsers() {
         try (FileInputStream fis = new FileInputStream(this.file)) {
             // Skips over the header bytes
             fis.readNBytes(this.header.length);
             ObjectInputStream ois = new ObjectInputStream(fis);
             // Reads list of users from file and casts it
-            return (HashMap<String, User>) ois.readObject();
+            return (Users) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

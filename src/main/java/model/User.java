@@ -33,4 +33,8 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    public String getName() {
+        return name;
+    }
 }
