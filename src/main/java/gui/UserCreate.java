@@ -92,6 +92,8 @@ public class UserCreate extends JFrame implements ActionListener {
 		btnCancelar.setBounds(39, 299, 89, 23);
 		btnCancelar.addActionListener(this);
 		contentPane.add(btnCancelar);
+
+		setVisible(true);
 	}
 
 	@Override

@@ -56,6 +56,8 @@ public class Login extends JFrame implements ActionListener {
 		btnIniciarSesion.setBounds(80, 145, 140, 23);
 		btnIniciarSesion.addActionListener(this);
 		contentPane.add(btnIniciarSesion);
+
+		setVisible(true);
 	}
 
 	@Override

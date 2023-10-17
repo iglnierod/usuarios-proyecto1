@@ -12,7 +12,7 @@ public class FileHandler {
     private Users users = new Users();
 
     public FileHandler() {
-        file = new File("usuarios5.bin");
+        file = new File("usuarios.bin");
         header = new byte[]{(byte) 0xFF, (byte) 0xEE, (byte) 0x20, (byte) 0x23, (byte) 0xEE, (byte) 0xFF};
         createFile();
     }
