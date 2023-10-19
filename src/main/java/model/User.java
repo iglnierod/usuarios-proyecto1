@@ -21,6 +21,22 @@ public class User implements Serializable {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
+    public boolean checkPassword(String pwd, String hashedPwd) {
+        return BCrypt.checkpw(pwd, hashedPwd);
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public String toString() {
         return "User{" +

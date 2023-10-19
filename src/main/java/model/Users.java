@@ -30,6 +30,19 @@ public class Users implements Serializable {
         System.out.println(user);
     }
 
+    public boolean findUser(String userName) {
+        return users.get(userName) != null;
+    }
+
+    public boolean checkPwd(String userName, String pwd) {
+        User user = users.get(userName);
+        return user.checkPassword(pwd, user.getPasswordHash());
+    }
+
+    public User getUser(String userName) {
+        return users.get(userName);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

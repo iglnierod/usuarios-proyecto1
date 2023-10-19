@@ -6,14 +6,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class FileHandler {
-    private File file;
-    private byte[] header;
+    private static File file = new File("usuarios.bin");;
+    private static byte[] header = new byte[]{(byte) 0xFF, (byte) 0xEE, (byte) 0x20, (byte) 0x23, (byte) 0xEE, (byte) 0xFF};
 
     private Users users = new Users();
 
     public FileHandler() {
-        file = new File("usuarios.bin");
-        header = new byte[]{(byte) 0xFF, (byte) 0xEE, (byte) 0x20, (byte) 0x23, (byte) 0xEE, (byte) 0xFF};
         createFile();
     }
 
@@ -42,10 +40,10 @@ public class FileHandler {
         }
     }
 
-    private boolean checkHeader() {
-        try (BufferedInputStream bif = new BufferedInputStream(new FileInputStream(this.file))) {
-            byte[] readBytes = bif.readNBytes(this.header.length);
-            int result = Arrays.compare(this.header, readBytes);
+    private static boolean checkHeader() {
+        try (BufferedInputStream bif = new BufferedInputStream(new FileInputStream(file))) {
+            byte[] readBytes = bif.readNBytes(header.length);
+            int result = Arrays.compare(header, readBytes);
             // If result == 0 -> this.header == readBytes
             /**/
             System.out.println("this.header == readBytes: " + (result == 0));
@@ -80,15 +78,19 @@ public class FileHandler {
         }
     }
 
-    private Users loadUsers() {
-        try (FileInputStream fis = new FileInputStream(this.file)) {
+    public static Users loadUsers() {
+        try (FileInputStream fis = new FileInputStream(file)) {
             // Skips over the header bytes
-            fis.readNBytes(this.header.length);
+            fis.readNBytes(header.length);
             ObjectInputStream ois = new ObjectInputStream(fis);
             // Reads list of users from file and casts it
             return (Users) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static boolean fileExists() {
+        return file.exists() && checkHeader();
     }
 }
