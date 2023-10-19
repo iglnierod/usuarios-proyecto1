@@ -26,6 +26,8 @@ public class Users implements Serializable {
 
     public void addUser(User user) {
         this.users.put(user.getName(), user);
+        System.out.println("Se ha añadido el usuario: ");
+        System.out.println(user);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Users implements Serializable {
         StringBuilder sb = new StringBuilder();
         Collection<User> users = this.users.values();
         for (User user : users) {
-            sb.append(user.toString()+"\n");
+            sb.append(user.toString() + "\n");
         }
         return sb.toString();
     }
