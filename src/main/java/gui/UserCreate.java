@@ -128,7 +128,7 @@ public class UserCreate extends JFrame implements ActionListener {
                 }
                 // Add user to App
                 model.User user = new model.User(name, String.valueOf(pwd), age, mail);
-                App.users.addUser(user);
+                this.app.addUser(user);
         }
     }
 
