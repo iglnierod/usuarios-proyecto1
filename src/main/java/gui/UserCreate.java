@@ -98,37 +98,41 @@ public class UserCreate extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case "Cancelar":
-                clearFields();
-                break;
-            case "Crear":
-                // Load and filter data
-                String name, mail;
-                int age = 0;
-                char[] pwd;
+        if (e.getSource() == btnCancelar) {
+            clearFields();
+            this.dispose();
+            return;
+        }
 
-                name = this.textoNombre.getText();
-                pwd = this.textoContraseña.getPassword();
-                mail = this.textoCorreo.getText();
+        if (e.getSource() == btnCrear) {
+            // Load and filter data
+            String name, mail;
+            int age = 0;
+            char[] pwd;
 
-                if (name.isEmpty() || pwd.length == 0 || mail.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else {
-                    try {
-                        age = Integer.parseInt(this.textoEdad.getText());
-                        if (age == 0)
-                            throw new NumberFormatException();
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(this, "Dato edad incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        this.textoEdad.requestFocus();
-                        this.textoEdad.selectAll();
-                    }
+            name = this.textoNombre.getText();
+            pwd = this.textoContraseña.getPassword();
+            mail = this.textoCorreo.getText();
+
+            if (name.isEmpty() || pwd.length == 0 || mail.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else {
+                try {
+                    age = Integer.parseInt(this.textoEdad.getText());
+                    if (age == 0)
+                        throw new NumberFormatException();
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Dato edad incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    this.textoEdad.requestFocus();
+                    this.textoEdad.selectAll();
                 }
-                // Add user to App
-                model.User user = new model.User(name, String.valueOf(pwd), age, mail);
-                this.app.addUser(user);
+            }
+            // Add user to App
+            model.User user = new model.User(name, String.valueOf(pwd), age, mail);
+            this.app.addUser(user);
+            this.dispose();
+            this.app.logOut();
         }
     }
 

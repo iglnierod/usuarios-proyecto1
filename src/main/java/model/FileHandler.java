@@ -1,52 +1,17 @@
 package model;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class FileHandler {
-    private static File file = new File("usuarios.bin");;
+    private static File file = new File("usuarios.bin");
     private static byte[] header = new byte[]{(byte) 0xFF, (byte) 0xEE, (byte) 0x20, (byte) 0x23, (byte) 0xEE, (byte) 0xFF};
-
-    private Users users = new Users();
-
-    public FileHandler() {
-        createFile();
-    }
-
-    private void createFile() {
-        // If file exists then check header
-        if (file.exists()) {
-            if (checkHeader() == true) {
-                users = loadUsers();
-                /**/
-                System.out.println("Se han cargado los siguientes usuarios: ");
-                System.out.println(users);
-            }
-            return;
-        }
-        // If file doesn't exist creates it and writes header and admin user
-        try {
-            file.createNewFile();
-            writeHeader();
-            this.users.addUser(new User("admin", "admin", 0, "admin@dam.local"));
-            this.users.addUser(new User("test", "test", 0, "test@test.local"));
-
-            writeObject(users);
-        } catch (IOException e) {
-            System.out.println("ERROR: No se ha podido crear el archivo " + file.getName());
-            e.printStackTrace();
-        }
-    }
 
     private static boolean checkHeader() {
         try (BufferedInputStream bif = new BufferedInputStream(new FileInputStream(file))) {
             byte[] readBytes = bif.readNBytes(header.length);
             int result = Arrays.compare(header, readBytes);
             // If result == 0 -> this.header == readBytes
-            /**/
-            System.out.println("this.header == readBytes: " + (result == 0));
             return result == 0;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -57,22 +22,22 @@ public class FileHandler {
         }
     }
 
-    private void writeHeader() {
-        try (FileOutputStream fos = new FileOutputStream(this.file)) {
+    public static void saveUsers(Users users) {
+        FileOutputStream fos;
+        ObjectOutputStream ois;
+        try {
             // Writes header bytes into the file
-            fos.write(this.header);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void writeObject(Users users) {
-        try (ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream(this.file, true))) {
+            fos = new FileOutputStream(file);
+            fos.write(header);
+            // Writes object Users into the file
+            ois = new ObjectOutputStream(new FileOutputStream(file, true));
             ois.writeObject(users);
-            System.out.println("Se ha escrito el objeto:");
+            /**/
+            System.out.println("FileHandler: Se han guardado los usuarios: ");
             System.out.println(users);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+
+            ois.close();
+            fos.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -82,12 +47,22 @@ public class FileHandler {
         try (FileInputStream fis = new FileInputStream(file)) {
             // Skips over the header bytes
             fis.readNBytes(header.length);
-            ObjectInputStream ois = new ObjectInputStream(fis);
             // Reads list of users from file and casts it
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            System.out.println("Se han leido los usuarios del archivo: " + file.getName());
             return (Users) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.err.println("No se pudieron leer los usuarios del archivo: " + file.getName());
+            e.printStackTrace();
+            return null;
         }
+    }
+
+    public static Users initiateFile() {
+        Users newUsers = new Users();
+        newUsers.addUser(new User("admin", "admin", 0, "admin@admin.local"));
+        saveUsers(newUsers);
+        return newUsers;
     }
 
     public static boolean fileExists() {

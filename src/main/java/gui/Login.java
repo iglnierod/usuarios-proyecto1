@@ -63,12 +63,9 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String userName = this.textoUsuario.getText();
         String pwd = this.textoContraseña.getText();
-        if (userName.isEmpty() || pwd.isEmpty())
-            return;
-        boolean isLoggedIn = this.app.logIn(userName, pwd);
-        if (isLoggedIn) {
-            model.User user = this.app.getCurrentUser();
-            new UserDetails(this.app, user.getName(), String.valueOf(user.getAge()), user.getEmail());
+        if (userName.isEmpty() || pwd.isEmpty()) return;
+        if (this.app.logIn(userName, pwd, this)) {
+            this.setVisible(false);
         }
     }
 }

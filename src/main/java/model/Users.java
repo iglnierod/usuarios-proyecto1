@@ -43,6 +43,10 @@ public class Users implements Serializable {
         return users.get(userName);
     }
 
+    public void deleteUser(String userName) {
+        this.users.remove(userName);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
