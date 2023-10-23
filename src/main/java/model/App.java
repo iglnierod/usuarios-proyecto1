@@ -46,8 +46,16 @@ public class App {
         JSON.userToJSON(session.getUser(), file);
     }
 
+    public void exportAllUsersToJSON(File file) {
+        JSON.allUsersToJSON(this.users.getAllUsers(), file);
+    }
+
     public void exportUserToXML(File file) {
         XML.userToXML(session.getUser(), file);
+    }
+
+    public void exportAllUsersToXML(File file) {
+        XML.usersToXML(this.users, file);
     }
 
     public void saveUsers(Users users) {

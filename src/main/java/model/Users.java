@@ -1,12 +1,14 @@
 package model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+@XmlRootElement
 public class Users implements Serializable {
-    HashMap<String, User> users;
+    private HashMap<String, User> users;
 
     public Users() {
         this.users = new HashMap<>();
@@ -20,6 +22,7 @@ public class Users implements Serializable {
         this.users = users;
     }
 
+    @XmlElement
     public HashMap<String, User> getUsers() {
         return this.users;
     }
@@ -45,6 +48,10 @@ public class Users implements Serializable {
 
     public void deleteUser(String userName) {
         this.users.remove(userName);
+    }
+
+    public Collection<User> getAllUsers() {
+        return this.users.values();
     }
 
     @Override

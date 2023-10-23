@@ -111,7 +111,7 @@ public class UserDetails extends JFrame implements ActionListener {
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                this.app.exportUserToXML(selectedFile);
+                this.app.exportAllUsersToXML(selectedFile);
                 System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
             } else {
                 System.out.println("Selección de archivo cancelada.");
