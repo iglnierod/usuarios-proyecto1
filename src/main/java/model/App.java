@@ -4,9 +4,16 @@ import gui.Login;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class App {
-    private final String filename = "usuarios.bin";
     private Users users;
     private Session session;
 
@@ -46,7 +53,7 @@ public class App {
         JSON.userToJSON(session.getUser(), file);
     }
 
-    public void exportAllUsersToJSON(File file) {
+    void exportAllUsersToJSON(File file) {
         JSON.allUsersToJSON(this.users.getAllUsers(), file);
     }
 
@@ -54,8 +61,12 @@ public class App {
         XML.userToXML(session.getUser(), file);
     }
 
-    public void exportAllUsersToXML(File file) {
-        XML.usersToXML(this.users, file);
+    void exportAllUsersToXML(File file) {
+        XML.usersToXML(this.users.getAllUsers(), file);
+    }
+
+    public void exportUsersToZIP(File file) {
+        ZIP.exportUsersToZIP(this, file);
     }
 
     public void saveUsers(Users users) {
