@@ -122,8 +122,6 @@ public class UserCreate extends WindowListener implements ActionListener {
             } else {
                 try {
                     age = Integer.parseInt(this.textoEdad.getText());
-                    if (age == 0)
-                        throw new NumberFormatException();
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Dato edad incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.textoEdad.requestFocus();
