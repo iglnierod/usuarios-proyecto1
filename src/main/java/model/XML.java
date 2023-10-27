@@ -3,9 +3,6 @@ package model;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -18,19 +15,28 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collection;
 
-// source : https://mkyong.com/java/how-to-create-xml-file-in-java-dom/
+// source : https://mkyong.com/java/how-to-create-xml-file-in-java-dom/ + GPT
 public class XML {
     public static void userToXML(User user, File file) {
-        System.out.println("Exportando a XML...");
-
         try {
-            JAXBContext context = JAXBContext.newInstance(User.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(user, file);
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-            System.out.println("XML creado con éxito: " + file.getPath());
-        } catch (JAXBException e) {
+            // Create the root element "user"
+            Document doc = docBuilder.newDocument();
+            Element userElement = doc.createElement("user");
+            doc.appendChild(userElement);
+
+            // Create child elements for "user" with user data
+            createElementWithValue(doc, userElement, "nombre", user.getName());
+            createElementWithValue(doc, userElement, "edad", String.valueOf(user.getAge()));
+            createElementWithValue(doc, userElement, "email", user.getEmail());
+
+            // Write the DOM document to the provided file with pretty-print format
+            try (FileOutputStream output = new FileOutputStream(file)) {
+                writeXml(doc, output);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

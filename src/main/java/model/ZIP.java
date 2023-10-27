@@ -38,6 +38,7 @@ public class ZIP {
         }
     }
 
+    // source: UD-Ficheros > Ejercicio119
     private static void addToZIP(File fileToZip, String fileName, ZipOutputStream zipOut) {
         try {
             if (fileToZip.isDirectory()) {

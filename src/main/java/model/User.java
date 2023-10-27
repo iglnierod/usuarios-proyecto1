@@ -2,11 +2,8 @@ package model;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement
 public class User implements Serializable {
     private String name;
     private String passwordHash;
@@ -41,17 +38,14 @@ public class User implements Serializable {
         return passwordHash;
     }
 
-    @XmlElement
     public int getAge() {
         return age;
     }
 
-    @XmlElement
     public String getEmail() {
         return email;
     }
 
-    @XmlElement
     public String getName() {
         return name;
     }

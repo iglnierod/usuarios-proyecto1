@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import model.App;
 
-public class UserCreate extends JFrame implements ActionListener {
+public class UserCreate extends WindowListener implements ActionListener {
 
     private JPanel contentPane;
     private JLabel etiquetaCrearUsuario;
@@ -26,6 +26,7 @@ public class UserCreate extends JFrame implements ActionListener {
     private App app;
 
     public UserCreate(App app) {
+        super(app);
         this.app = app;
         setTitle("Aplicación usuarios");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -101,6 +102,7 @@ public class UserCreate extends JFrame implements ActionListener {
         if (e.getSource() == btnCancelar) {
             clearFields();
             this.dispose();
+            this.app.showUser(this.app.getCurrentUser());
             return;
         }
 
@@ -130,7 +132,10 @@ public class UserCreate extends JFrame implements ActionListener {
             }
             // Add user to App
             model.User user = new model.User(name, String.valueOf(pwd), age, mail);
-            this.app.addUser(user);
+            if (!this.app.addUser(user)) {
+                JOptionPane.showMessageDialog(this, "No se ha podido crear el usuario. El usuario ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             this.app.logOut();
             this.dispose();
         }

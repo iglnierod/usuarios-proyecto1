@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import model.App;
 
-public class User extends JFrame implements ActionListener {
+public class User extends WindowListener implements ActionListener {
 
     private JPanel contentPane;
     private JLabel etiquetaMenuUsuario;
@@ -24,6 +24,7 @@ public class User extends JFrame implements ActionListener {
     private String nombreUsuario;
 
     public User(App app, String nombreUsuario) {
+        super(app);
         this.app = app;
         this.nombreUsuario = nombreUsuario;
         int paddingLeft = 75;
@@ -84,7 +85,9 @@ public class User extends JFrame implements ActionListener {
         contentPane.setLayout(null);
         setLocationRelativeTo(null);
         setResizable(false);
+
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -116,6 +119,7 @@ public class User extends JFrame implements ActionListener {
 
         if (e.getSource() == btnCrearNuevoUsuario) {
             app.showUserCreate();
+            this.dispose();
             return;
         }
 
@@ -126,9 +130,8 @@ public class User extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == btnBorrarUsuario) {
-            this.app.deleteUser();
+            this.app.showUserDelete();
             this.dispose();
-            return;
         }
     }
 

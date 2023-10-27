@@ -1,12 +1,9 @@
 package model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 
-@XmlRootElement
 public class Users implements Serializable {
     private HashMap<String, User> users;
 
@@ -14,17 +11,11 @@ public class Users implements Serializable {
         this.users = new HashMap<>();
     }
 
-    public Users(HashMap<String, User> users) {
-        this.users = users;
-    }
-
-    public void setUsers(HashMap<String, User> users) {
-        this.users = users;
-    }
-
-    @XmlElement
-    public HashMap<String, User> getUsers() {
-        return this.users;
+    public boolean userExists(String userName) {
+        for (String s : users.keySet()) {
+            if (s.equals(userName)) return true;
+        }
+        return false;
     }
 
     public void addUser(User user) {

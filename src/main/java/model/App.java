@@ -4,14 +4,6 @@ import gui.Login;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 public class App {
     private Users users;
@@ -30,14 +22,19 @@ public class App {
         new Login(this);
     }
 
-    public void addUser(User user) {
+    public boolean addUser(User user) {
+        if (this.users.userExists(user.getName())) {
+            return false;
+        }
         this.users.addUser(user);
         this.saveUsers(this.users);
         System.out.println("users: ");
         System.out.println(this.users);
+        return true;
     }
 
-    public boolean logIn(String userName, String pwd, Login login) {
+
+    public boolean logIn(String userName, String pwd) {
         if (this.users.findUser(userName)) {
             if (this.users.checkPwd(userName, pwd)) {
                 this.session.setUser(this.users.getUser(userName));
@@ -45,7 +42,6 @@ public class App {
                 return true;
             }
         }
-        JOptionPane.showMessageDialog(login, "El usuario y/o contraseña no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
         return false;
     }
 
@@ -73,7 +69,7 @@ public class App {
         FileHandler.saveUsers(users);
     }
 
-    public void showUser(User user) {
+    public void showUser(model.User user) {
         new gui.User(this, user.getName()).setVisible(true);
     }
 
@@ -97,6 +93,10 @@ public class App {
         new gui.UserCreate(this).setVisible(true);
     }
 
+    public void showUserDelete() {
+        new gui.UserDelete(this, session.getUser().getName()).setVisible(true);
+    }
+
     public void logOut() {
         this.session.logOut();
         this.loadUsers();
@@ -114,5 +114,9 @@ public class App {
         users.deleteUser(session.getUser().getName());
         this.saveUsers(this.users);
         this.logOut();
+    }
+
+    public User getCurrentUser() {
+        return this.session.getUser();
     }
 }

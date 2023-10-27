@@ -66,6 +66,8 @@ public class Login extends JFrame implements ActionListener {
         if (userName.isEmpty() || pwd.isEmpty()) return;
         if (this.app.logIn(userName, pwd, this)) {
             this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "El usuario y/o contraseña no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
