@@ -123,11 +123,20 @@ public class UserCreate extends WindowListener implements ActionListener {
                 try {
                     age = Integer.parseInt(this.textoEdad.getText());
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Dato edad incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.textoEdad.requestFocus();
                     this.textoEdad.selectAll();
+                    JOptionPane.showMessageDialog(this, "Dato edad incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
             }
+
+            if (age < 0 || age == 0) {
+                this.textoEdad.requestFocus();
+                this.textoEdad.selectAll();
+                JOptionPane.showMessageDialog(this, "La edad debe ser mayor y diferente de 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Add user to App
             model.User user = new model.User(name, String.valueOf(pwd), age, mail);
             if (!this.app.addUser(user)) {
