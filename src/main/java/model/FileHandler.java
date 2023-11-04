@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.Arrays;
 
 public class FileHandler {
-    private static File file = new File("usuarios.bin");
-    private static byte[] header = new byte[]{(byte) 0xFF, (byte) 0xEE, (byte) 0x20, (byte) 0x23, (byte) 0xEE, (byte) 0xFF};
+    private static final File file = new File("usuarios.bin");
+    private static final byte[] header = new byte[]{(byte) 0xFF, (byte) 0xEE, (byte) 0x20, (byte) 0x23, (byte) 0xEE, (byte) 0xFF};
 
     private static boolean checkHeader() {
         try (BufferedInputStream bif = new BufferedInputStream(new FileInputStream(file))) {
@@ -13,11 +13,7 @@ public class FileHandler {
             int result = Arrays.compare(header, readBytes);
             // If result == 0 -> this.header == readBytes
             return result == 0;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -43,7 +39,7 @@ public class FileHandler {
         }
     }
 
-    public static Users loadUsers() {
+    private static Users loadUsersFromFile() {
         try (FileInputStream fis = new FileInputStream(file)) {
             // Skips over the header bytes
             fis.readNBytes(header.length);
@@ -53,19 +49,25 @@ public class FileHandler {
             return (Users) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("No se pudieron leer los usuarios del archivo: " + file.getName());
-            e.printStackTrace();
             return null;
         }
     }
 
-    public static Users initiateFile() {
+    public static Users loadUsers() {
+        if (fileExists()) {
+            return loadUsersFromFile();
+        }
+        return initiateFile();
+    }
+
+    private static Users initiateFile() {
         Users newUsers = new Users();
         newUsers.addUser(new User("admin", "admin", 0, "admin@admin.local"));
         saveUsers(newUsers);
         return newUsers;
     }
 
-    public static boolean fileExists() {
+    private static boolean fileExists() {
         return file.exists() && checkHeader();
     }
 }

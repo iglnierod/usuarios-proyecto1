@@ -2,7 +2,6 @@ package model;
 
 import gui.Login;
 
-import javax.swing.*;
 import java.io.File;
 
 public class App {
@@ -10,14 +9,7 @@ public class App {
     private Session session;
 
     public App() {
-        if (FileHandler.fileExists()) {
-            this.users = FileHandler.loadUsers();
-            /**/
-            System.out.println("Usuarios cargados:");
-            System.out.println(this.users);
-        } else {
-            this.users = FileHandler.initiateFile();
-        }
+        this.users = FileHandler.loadUsers();
         this.session = new Session();
         new Login(this);
     }
@@ -27,7 +19,7 @@ public class App {
             return false;
         }
         this.users.addUser(user);
-        this.saveUsers(this.users);
+        this.saveUsers();
         System.out.println("users: ");
         System.out.println(this.users);
         return true;
@@ -49,24 +41,24 @@ public class App {
         JSON.userToJSON(session.getUser(), file);
     }
 
-    void exportAllUsersToJSON(File file) {
-        JSON.allUsersToJSON(this.users.getAllUsers(), file);
+    public void exportAllUsersToJSON(File file) {
+        JSON.allUsersToJSON(this.users, file);
     }
 
     public void exportUserToXML(File file) {
         XML.userToXML(session.getUser(), file);
     }
 
-    void exportAllUsersToXML(File file) {
-        XML.usersToXML(this.users.getAllUsers(), file);
+    public void exportAllUsersToXML(File file) {
+        XML.usersToXML(this.users, file);
     }
 
     public void exportUsersToZIP(File file) {
         ZIP.exportUsersToZIP(this, file);
     }
 
-    public void saveUsers(Users users) {
-        FileHandler.saveUsers(users);
+    private void saveUsers() {
+        FileHandler.saveUsers(this.users);
     }
 
     public void showUser(model.User user) {
@@ -104,15 +96,13 @@ public class App {
     }
 
     private void loadUsers() {
-        if (FileHandler.fileExists()) {
-            this.users = FileHandler.loadUsers();
-            this.session = new Session();
-        }
+        this.users = FileHandler.loadUsers();
+        this.session = new Session();
     }
 
     public void deleteUser() {
         users.deleteUser(session.getUser().getName());
-        this.saveUsers(this.users);
+        this.saveUsers();
         this.logOut();
     }
 

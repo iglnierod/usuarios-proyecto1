@@ -41,7 +41,7 @@ public class XML {
         }
     }
 
-    public static void usersToXML(Collection<User> users, File file) {
+    public static void usersToXML(Users users, File file) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -51,7 +51,7 @@ public class XML {
             Element usersElement = doc.createElement("users");
             doc.appendChild(usersElement);
 
-            for (User user : users) {
+            for (User user : users.getAllUsers()) {
                 // Create a "user" element for each user
                 Element userElement = doc.createElement("user");
                 usersElement.appendChild(userElement);
@@ -67,7 +67,7 @@ public class XML {
                 writeXml(doc, output);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("No se ha podido exportar a XML");
         }
     }
 

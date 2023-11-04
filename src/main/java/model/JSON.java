@@ -26,11 +26,11 @@ public class JSON {
         System.out.println("Archivo JSON creado: " + jsonUser);
     }
 
-    public static void allUsersToJSON(Collection<User> users, File file) {
+    public static void allUsersToJSON(Users users, File file) {
         System.out.println("Exportando todos los usuarios...");
 
         JSONArray usersArray = new JSONArray();
-        for (User user : users) {
+        for (User user : users.getAllUsers()) {
             JSONObject jsonUser = new JSONObject();
             jsonUser.put("nombre", user.getName());
             jsonUser.put("edad", user.getAge());

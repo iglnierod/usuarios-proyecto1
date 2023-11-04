@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class Users implements Serializable {
-    private HashMap<String, User> users;
+    private final HashMap<String, User> users;
 
     public Users() {
         this.users = new HashMap<>();
@@ -50,7 +50,7 @@ public class Users implements Serializable {
         StringBuilder sb = new StringBuilder();
         Collection<User> users = this.users.values();
         for (User user : users) {
-            sb.append(user.toString() + "\n");
+            sb.append(user.toString()).append("\n");
         }
         return sb.toString();
     }
