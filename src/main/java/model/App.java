@@ -58,11 +58,19 @@ public class App {
     }
 
     public void exportUserToCSV(File file) {
-        CSV.userToCSV(this.session.getUser(),file);
+        CSV.userToCSV(this.session.getUser(), file);
     }
 
     public void exportAllUsersToCSV(File file) {
         CSV.usersToCSV(this.users, file);
+    }
+
+    public void exportUserToPDF(File file) {
+        PDF.userToPDF(this.session.getUser(), file);
+    }
+
+    public void exportAllUsersToPDF(File file) {
+        PDF.allUsersToPDF(this.users, file);
     }
 
     private void saveUsers() {

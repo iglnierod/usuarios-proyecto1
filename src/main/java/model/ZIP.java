@@ -19,6 +19,7 @@ public class ZIP {
         app.exportAllUsersToXML(new File(users, "users.xml"));
         app.exportAllUsersToJSON(new File(users, "users.json"));
         app.exportAllUsersToCSV(new File(users, "users.csv"));
+        app.exportAllUsersToPDF(new File(users, "users.pdf"));
 
         try {
             file.createNewFile();
