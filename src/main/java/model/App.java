@@ -57,6 +57,14 @@ public class App {
         ZIP.exportUsersToZIP(this, file);
     }
 
+    public void exportUserToCSV(File file) {
+        CSV.userToCSV(this.session.getUser(),file);
+    }
+
+    public void exportAllUsersToCSV(File file) {
+        CSV.usersToCSV(this.users, file);
+    }
+
     private void saveUsers() {
         FileHandler.saveUsers(this.users);
     }

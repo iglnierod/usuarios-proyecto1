@@ -18,6 +18,7 @@ public class ZIP {
         users.mkdir();
         app.exportAllUsersToXML(new File(users, "users.xml"));
         app.exportAllUsersToJSON(new File(users, "users.json"));
+        app.exportAllUsersToCSV(new File(users, "users.csv"));
 
         try {
             file.createNewFile();

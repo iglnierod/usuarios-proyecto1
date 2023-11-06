@@ -24,6 +24,7 @@ public class UserDetails extends JFrame implements ActionListener {
     private JMenuItem xmlMenu;
     private JMenuItem jsonMenu;
 
+    private JMenuItem csvMenu;
     private App app;
 
     public UserDetails(App app, String nombreUsuario, String edad, String correo) {
@@ -93,12 +94,15 @@ public class UserDetails extends JFrame implements ActionListener {
 
         xmlMenu = new JMenuItem("XML");
         jsonMenu = new JMenuItem("JSON");
+        csvMenu = new JMenuItem("CSV");
 
         xmlMenu.addActionListener(this);
         jsonMenu.addActionListener(this);
+        csvMenu.addActionListener(this);
 
         exportarMenu.add(xmlMenu);
         exportarMenu.add(jsonMenu);
+        exportarMenu.add(csvMenu);
     }
 
     @Override
@@ -127,6 +131,21 @@ public class UserDetails extends JFrame implements ActionListener {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 this.app.exportUserToJSON(selectedFile);
+                System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
+            } else {
+                System.out.println("Selección de archivo cancelada.");
+            }
+        }
+
+        if (e.getSource() == csvMenu) {
+            System.out.println("Exportar usuario (CSV)");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setSelectedFile(new File("usuario.csv"));
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                this.app.exportUserToCSV(selectedFile);
                 System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
             } else {
                 System.out.println("Selección de archivo cancelada.");
