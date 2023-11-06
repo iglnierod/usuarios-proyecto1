@@ -73,6 +73,10 @@ public class App {
         PDF.allUsersToPDF(this.users, file);
     }
 
+    public void exportAllUsersToXLSX(File file) {
+        XLSX.allUsersToXLSX(this.users, file);
+    }
+
     private void saveUsers() {
         FileHandler.saveUsers(this.users);
     }
