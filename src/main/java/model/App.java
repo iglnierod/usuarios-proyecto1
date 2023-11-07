@@ -77,6 +77,10 @@ public class App {
         XLSX.allUsersToXLSX(this.users, file);
     }
 
+    public void exportAllUsersToSQL(File file) {
+        SQL.createUsersTable(this.users, file);
+    }
+
     private void saveUsers() {
         FileHandler.saveUsers(this.users);
     }

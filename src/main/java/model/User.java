@@ -17,6 +17,8 @@ public class User implements Serializable {
     public User(String name, String password, int age, String email) {
         this.name = name;
         this.setPasswordHash(password);
+        System.out.println(passwordHash);
+        System.out.println(passwordHash.length());
         this.age = age;
         this.email = email;
     }

@@ -21,6 +21,7 @@ public class ZIP {
         app.exportAllUsersToCSV(new File(users, "users.csv"));
         app.exportAllUsersToPDF(new File(users, "users.pdf"));
         app.exportAllUsersToXLSX(new File(users, "users.xlsx"));
+        app.exportAllUsersToSQL(new File(users, "users.sql"));
 
         try {
             file.createNewFile();
@@ -77,7 +78,6 @@ public class ZIP {
                 .sorted(Comparator.reverseOrder())
                 .forEach(path -> {
                     try {
-                        System.out.println("Deleting: " + path);
                         Files.delete(path);  //delete each file or directory
                     } catch (IOException e) {
                         e.printStackTrace();
