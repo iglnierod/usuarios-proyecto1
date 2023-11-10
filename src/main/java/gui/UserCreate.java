@@ -3,6 +3,7 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,10 +18,13 @@ public class UserCreate extends WindowListener implements ActionListener {
     private JLabel etiquetaContraseña;
     private JLabel etiquetaEdad;
     private JLabel etiquetaCorreo;
+    private JLabel etiquetaImagen;
     private JTextField textoNombre;
     private JPasswordField textoContraseña;
     private JTextField textoEdad;
     private JTextField textoCorreo;
+    private JTextField textoImagen;
+    private JButton btnImagen;
     private JButton btnCrear;
     private JButton btnCancelar;
     private App app;
@@ -30,7 +34,7 @@ public class UserCreate extends WindowListener implements ActionListener {
         this.app = app;
         setTitle("Aplicación usuarios");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 322, 385);
+        setBounds(100, 100, 322, 460);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -39,58 +43,87 @@ public class UserCreate extends WindowListener implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        etiquetaNombre = new JLabel("Nombre:");
-        etiquetaNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        etiquetaNombre.setBounds(65, 56, 68, 14);
-        contentPane.add(etiquetaNombre);
+//        try {
+//            File image = new File("png400.png");
+//            String inputImagePath = image.getAbsolutePath();
+//            String outputImagePath = new File("").getAbsolutePath() + "100.png";
+//            Image.resize(inputImagePath, outputImagePath, 100, 100);
+//            BufferedImage myPicture = ImageIO.read(new File(outputImagePath));
+//            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+//            picLabel.setBounds(45, 350, 100, 100);
+//            contentPane.add(picLabel);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         etiquetaCrearUsuario = new JLabel("CREAR USUARIO");
-        etiquetaCrearUsuario.setBounds(83, 11, 154, 20);
+        etiquetaCrearUsuario.setBounds(80, 11, 154, 20);
         etiquetaCrearUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPane.add(etiquetaCrearUsuario);
 
+        etiquetaNombre = new JLabel("Nombre:");
+        etiquetaNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        etiquetaNombre.setBounds(45, 56, 68, 14);
+        contentPane.add(etiquetaNombre);
+
         textoNombre = new JTextField();
-        textoNombre.setBounds(65, 81, 214, 20);
+        textoNombre.setBounds(45, 81, 214, 20);
         contentPane.add(textoNombre);
         textoNombre.setColumns(10);
 
         etiquetaContraseña = new JLabel("Contraseña:");
         etiquetaContraseña.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        etiquetaContraseña.setBounds(65, 112, 68, 14);
+        etiquetaContraseña.setBounds(45, 112, 68, 14);
         contentPane.add(etiquetaContraseña);
 
         textoContraseña = new JPasswordField();
         textoContraseña.setColumns(10);
-        textoContraseña.setBounds(65, 137, 214, 20);
+        textoContraseña.setBounds(45, 137, 214, 20);
         contentPane.add(textoContraseña);
 
         etiquetaEdad = new JLabel("Edad:");
         etiquetaEdad.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        etiquetaEdad.setBounds(65, 168, 68, 14);
+        etiquetaEdad.setBounds(45, 168, 68, 14);
         contentPane.add(etiquetaEdad);
 
         textoEdad = new JTextField();
         textoEdad.setColumns(10);
-        textoEdad.setBounds(65, 193, 214, 20);
+        textoEdad.setBounds(45, 193, 214, 20);
         contentPane.add(textoEdad);
 
         etiquetaCorreo = new JLabel("Correo electrónico:");
         etiquetaCorreo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        etiquetaCorreo.setBounds(65, 224, 214, 14);
+        etiquetaCorreo.setBounds(45, 224, 214, 14);
         contentPane.add(etiquetaCorreo);
 
         textoCorreo = new JTextField();
         textoCorreo.setColumns(10);
-        textoCorreo.setBounds(65, 249, 214, 20);
+        textoCorreo.setBounds(45, 249, 214, 20);
         contentPane.add(textoCorreo);
 
+        etiquetaImagen = new JLabel("Imagen de perfil:");
+        etiquetaImagen.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        etiquetaImagen.setBounds(45, 280, 214, 14);
+        contentPane.add(etiquetaImagen);
+
+        btnImagen = new JButton("Subir imagen");
+        btnImagen.setBounds(45, 300, 214, 23);
+        btnImagen.addActionListener(this);
+        contentPane.add(btnImagen);
+
+        textoImagen = new JTextField();
+        textoImagen.setColumns(10);
+        textoImagen.setBounds(45, 330, 214, 20);
+        textoImagen.setEnabled(false);
+        contentPane.add(textoImagen);
+
         btnCrear = new JButton("Crear");
-        btnCrear.setBounds(172, 299, 89, 23);
+        btnCrear.setBounds(168, 380, 89, 23);
         btnCrear.addActionListener(this);
         contentPane.add(btnCrear);
 
         btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(39, 299, 89, 23);
+        btnCancelar.setBounds(45, 380, 89, 23);
         btnCancelar.addActionListener(this);
         contentPane.add(btnCancelar);
 
@@ -108,13 +141,14 @@ public class UserCreate extends WindowListener implements ActionListener {
 
         if (e.getSource() == btnCrear) {
             // Load and filter data
-            String name, mail;
+            String name, mail, image;
             int age = 0;
             char[] pwd;
 
             name = this.textoNombre.getText();
             pwd = this.textoContraseña.getPassword();
             mail = this.textoCorreo.getText();
+            image = this.textoImagen.getText();
 
             if (name.isEmpty() || pwd.length == 0 || mail.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -139,12 +173,30 @@ public class UserCreate extends WindowListener implements ActionListener {
 
             // Add user to App
             model.User user = new model.User(name, String.valueOf(pwd), age, mail);
+            if (!textoImagen.getText().isEmpty()) {
+                user.setImage(new File(textoImagen.getText()));
+            }
             if (!this.app.addUser(user)) {
                 JOptionPane.showMessageDialog(this, "No se ha podido crear el usuario. El usuario ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             this.app.logOut();
             this.dispose();
+        }
+
+        if (e.getSource() == btnImagen) {
+            System.out.println("Subir imagen de usuario.");
+            JFileChooser fileChooser = new JFileChooser();
+//            fileChooser.setSelectedFile(new File(textoNombre.getText() + ".png"));
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                textoImagen.setText(selectedFile.getPath());
+                System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
+            } else {
+                System.out.println("Selección de archivo cancelada.");
+            }
         }
     }
 

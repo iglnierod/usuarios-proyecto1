@@ -2,13 +2,21 @@ package model;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class User implements Serializable {
+    private static final String RESOURCES_PATH = new File("").getAbsolutePath() + "\\src\\main\\java\\resources\\images\\";
     private String name;
     private String passwordHash;
     private int age;
     private String email;
+    private File image;
 
     public User() {
         // Constructor vacío necesario para JAXB
@@ -21,6 +29,16 @@ public class User implements Serializable {
         System.out.println(passwordHash.length());
         this.age = age;
         this.email = email;
+    }
+
+    public User(String name, String password, int age, String email, File image) {
+        this.name = name;
+        this.setPasswordHash(password);
+        System.out.println(passwordHash);
+        System.out.println(passwordHash.length());
+        this.age = age;
+        this.email = email;
+        this.image = image;
     }
 
     private void setPasswordHash(String password) {
@@ -52,12 +70,21 @@ public class User implements Serializable {
         return name;
     }
 
+    public File getImage() {
+        return image;
+    }
+
+    public void setImage(File image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

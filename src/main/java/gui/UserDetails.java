@@ -20,6 +20,7 @@ public class UserDetails extends JFrame implements ActionListener {
     private JTextPane datoNombre;
     private JTextPane datoEdad;
     private JTextPane datoCorreo;
+    private JPanel pnlImage;
     private JButton btnVolver;
     private JMenuItem xmlMenu;
     private JMenuItem jsonMenu;

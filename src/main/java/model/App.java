@@ -10,6 +10,7 @@ public class App {
 
     public App() {
         this.users = FileHandler.loadUsers();
+        System.out.println(users);
         this.session = new Session();
         new Login(this);
     }

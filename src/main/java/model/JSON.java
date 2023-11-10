@@ -6,8 +6,6 @@ import org.json.simple.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class JSON {
     public static void userToJSON(User user, File file) {

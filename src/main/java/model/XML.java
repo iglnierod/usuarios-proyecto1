@@ -13,7 +13,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Collection;
 
 // source : https://mkyong.com/java/how-to-create-xml-file-in-java-dom/ + GPT
 public class XML {
