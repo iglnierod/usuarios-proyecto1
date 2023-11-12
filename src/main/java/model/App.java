@@ -27,6 +27,7 @@ public class App {
         if (userImage != null) {
             File target = new File(PROJECT_PATH + "\\img\\" + user.getName() + "." + FileHandler.getFileExtension(userImage));
             FileHandler.saveResizedImage(userImage, target);
+            userImage = target;
         } else {
             userImage = new File(PROJECT_PATH + "\\img\\", "no-image.png");
         }
@@ -92,6 +93,14 @@ public class App {
 
     public void exportAllUsersToSQL(File file) {
         SQL.createUsersTable(this.users, file);
+    }
+
+    public void exportUserToHTML(File file) {
+        HTML.userToHTML(session.getUser(), file);
+    }
+
+    public void exportUsersToHTML(File file) {
+        HTML.usersToHTML(this.users, file);
     }
 
     private void saveUsers() {

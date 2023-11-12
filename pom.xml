@@ -89,6 +89,14 @@
             <artifactId>imgscalr-lib</artifactId>
             <version>4.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.j2html/j2html -->
+        <dependency>
+            <groupId>com.j2html</groupId>
+            <artifactId>j2html</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>

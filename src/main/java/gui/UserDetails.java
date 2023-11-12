@@ -26,6 +26,7 @@ public class UserDetails extends JFrame implements ActionListener {
 
     private JMenuItem csvMenu;
     private JMenuItem pdfMenu;
+    private JMenuItem htmlMenu;
     private App app;
 
     public UserDetails(App app, String nombreUsuario, String edad, String correo) {
@@ -52,10 +53,7 @@ public class UserDetails extends JFrame implements ActionListener {
         etiquetaImagen.setBounds(100, 70, 100, 100);
         contentPane.add(etiquetaImagen);
 
-        String imagePath = App.PROJECT_PATH + "\\img\\no-image.png";
-        if (app.userHasImage()) {
-            imagePath = app.getUserImage();
-        }
+        String imagePath = app.getUserImage();
         ImageIcon originalIcon = new ImageIcon(imagePath);
         Image originalImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(originalImage);
@@ -110,16 +108,19 @@ public class UserDetails extends JFrame implements ActionListener {
         jsonMenu = new JMenuItem("JSON");
         csvMenu = new JMenuItem("CSV");
         pdfMenu = new JMenuItem("PDF");
+        htmlMenu = new JMenuItem("HTML");
 
         xmlMenu.addActionListener(this);
         jsonMenu.addActionListener(this);
         csvMenu.addActionListener(this);
         pdfMenu.addActionListener(this);
+        htmlMenu.addActionListener(this);
 
         exportarMenu.add(xmlMenu);
         exportarMenu.add(jsonMenu);
         exportarMenu.add(csvMenu);
         exportarMenu.add(pdfMenu);
+        exportarMenu.add(htmlMenu);
     }
 
     @Override
@@ -178,6 +179,21 @@ public class UserDetails extends JFrame implements ActionListener {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 this.app.exportUserToPDF(selectedFile);
+                System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
+            } else {
+                System.out.println("Selección de archivo cancelada.");
+            }
+        }
+
+        if (e.getSource() == htmlMenu) {
+            System.out.println("Exportar usuario (HTML)");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setSelectedFile(new File("usuario.html"));
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                this.app.exportUserToHTML(selectedFile);
                 System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
             } else {
                 System.out.println("Selección de archivo cancelada.");
