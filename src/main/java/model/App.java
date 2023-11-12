@@ -3,10 +3,14 @@ package model;
 import gui.Login;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class App {
     private Users users;
     private Session session;
+    public static final String PROJECT_PATH = new File("").getAbsolutePath();
 
     public App() {
         this.users = FileHandler.loadUsers();
@@ -15,17 +19,25 @@ public class App {
         new Login(this);
     }
 
-    public boolean addUser(User user) {
+    public boolean addUser(User user, File userImage) {
         if (this.users.userExists(user.getName())) {
             return false;
         }
+
+        if (userImage != null) {
+            File target = new File(PROJECT_PATH + "\\img\\" + user.getName() + "." + FileHandler.getFileExtension(userImage));
+            FileHandler.saveResizedImage(userImage, target);
+        } else {
+            userImage = new File(PROJECT_PATH + "\\img\\", "no-image.png");
+        }
+
+        user.setImage(userImage);
         this.users.addUser(user);
         this.saveUsers();
         System.out.println("users: ");
         System.out.println(this.users);
         return true;
     }
-
 
     public boolean logIn(String userName, String pwd) {
         if (this.users.findUser(userName)) {
@@ -133,5 +145,13 @@ public class App {
 
     public User getCurrentUser() {
         return this.session.getUser();
+    }
+
+    public boolean userHasImage() {
+        return session.getUser().getImage() != null;
+    }
+
+    public String getUserImage() {
+        return session.getUser().getImage().getAbsolutePath();
     }
 }

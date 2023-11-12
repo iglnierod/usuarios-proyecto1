@@ -16,7 +16,8 @@ public class XLSX {
         Sheet sheet = workbook.createSheet("User");
         sheet.setColumnWidth(0, 3000);
         sheet.setColumnWidth(1, 1500);
-        sheet.setColumnWidth(2, 6000);
+        sheet.setColumnWidth(2, 8000);
+        sheet.setColumnWidth(3, 8000);
 
         Row header = sheet.createRow(0);
         XSSFFont font = ((XSSFWorkbook) workbook).createFont();
@@ -40,6 +41,10 @@ public class XLSX {
         headerCell.setCellValue("Email");
         headerCell.setCellStyle(style);
 
+        headerCell = header.createCell(3);
+        headerCell.setCellValue("Image");
+        headerCell.setCellStyle(style);
+
         int rowIndex = 1;
         for (User user : users.getAllUsers()) {
             Row row = sheet.createRow(rowIndex);
@@ -54,6 +59,10 @@ public class XLSX {
 
             cell = row.createCell(2);
             cell.setCellValue(user.getEmail());
+            cell.setCellStyle(style);
+
+            cell = row.createCell(3);
+            cell.setCellValue(user.getImagePath());
             cell.setCellStyle(style);
 
             rowIndex++;

@@ -24,7 +24,7 @@ public class PDF {
             contentStream.showText("User:");
             contentStream.endText();
 
-            String[] data = {"Name: " + user.getName(), "Age: " + user.getName(), "Email: " + user.getEmail()};
+            String[] data = {"Name: " + user.getName(), "Age: " + user.getName(), "Email: " + user.getEmail(), "Image: " + user.getImagePath()};
 
             float y = 650;
             for (String var : data) {
@@ -64,7 +64,7 @@ public class PDF {
 
             float y = 650;
             for (User user : users.getAllUsers()) {
-                String[] data = {"Name: " + user.getName(), "Age: " + user.getAge(), "Email: " + user.getEmail()};
+                String[] data = {"Name: " + user.getName(), "Age: " + user.getName(), "Email: " + user.getEmail(), "Image: " + user.getImagePath()};
                 for (String var : data) {
                     contentStream.beginText();
                     contentStream.newLineAtOffset(120, y);

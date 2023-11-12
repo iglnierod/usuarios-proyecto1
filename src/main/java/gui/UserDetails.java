@@ -1,14 +1,13 @@
 package gui;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
+import model.App;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import model.App;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 public class UserDetails extends JFrame implements ActionListener {
 
@@ -17,10 +16,10 @@ public class UserDetails extends JFrame implements ActionListener {
     private JLabel etiquetaNombre;
     private JLabel etiquetaEdad;
     private JLabel etiquetaCorreo;
+    private JLabel etiquetaImagen;
     private JTextPane datoNombre;
     private JTextPane datoEdad;
     private JTextPane datoCorreo;
-    private JPanel pnlImage;
     private JButton btnVolver;
     private JMenuItem xmlMenu;
     private JMenuItem jsonMenu;
@@ -34,7 +33,7 @@ public class UserDetails extends JFrame implements ActionListener {
 
         setTitle("Aplicación usuarios");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 304, 390);
+        setBounds(100, 100, 304, 450);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -49,44 +48,57 @@ public class UserDetails extends JFrame implements ActionListener {
         etiquetaDatosUsuario.setBounds(64, 32, 169, 30);
         contentPane.add(etiquetaDatosUsuario);
 
-        datoNombre = new JTextPane();
-        datoNombre.setEditable(false);
-        datoNombre.setBounds(64, 111, 169, 20);
-        datoNombre.setText(nombreUsuario);
-        contentPane.add(datoNombre);
+        etiquetaImagen = new JLabel();
+        etiquetaImagen.setBounds(100, 70, 100, 100);
+        contentPane.add(etiquetaImagen);
+
+        String imagePath = App.PROJECT_PATH + "\\img\\no-image.png";
+        if (app.userHasImage()) {
+            imagePath = app.getUserImage();
+        }
+        ImageIcon originalIcon = new ImageIcon(imagePath);
+        Image originalImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(originalImage);
+
+        etiquetaImagen.setIcon(scaledIcon);
 
         etiquetaNombre = new JLabel("Nombre:");
         etiquetaNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        etiquetaNombre.setBounds(64, 86, 57, 14);
+        etiquetaNombre.setBounds(64, 180, 57, 14);
         contentPane.add(etiquetaNombre);
 
-        btnVolver = new JButton("Volver");
-        btnVolver.setBounds(99, 278, 89, 23);
-        btnVolver.addActionListener(this);
-        contentPane.add(btnVolver);
+        datoNombre = new JTextPane();
+        datoNombre.setEditable(false);
+        datoNombre.setBounds(64, 195, 169, 20);
+        datoNombre.setText(nombreUsuario);
+        contentPane.add(datoNombre);
 
         etiquetaEdad = new JLabel("Edad:");
         etiquetaEdad.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        etiquetaEdad.setBounds(64, 142, 57, 14);
+        etiquetaEdad.setBounds(64, 225, 57, 14);
         contentPane.add(etiquetaEdad);
 
         datoEdad = new JTextPane();
         datoEdad.setEditable(false);
-        datoEdad.setBounds(64, 167, 169, 20);
+        datoEdad.setBounds(64, 240, 169, 20);
         datoEdad.setText(edad);
         contentPane.add(datoEdad);
 
         etiquetaCorreo = new JLabel("Correo electrónico:");
         etiquetaCorreo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        etiquetaCorreo.setBounds(64, 209, 169, 14);
+        etiquetaCorreo.setBounds(64, 270, 169, 14);
         contentPane.add(etiquetaCorreo);
 
         datoCorreo = new JTextPane();
         datoCorreo.setEditable(false);
-        datoCorreo.setBounds(64, 234, 169, 20);
+        datoCorreo.setBounds(64, 285, 169, 20);
         datoCorreo.setText(correo);
         contentPane.add(datoCorreo);
 
+        btnVolver = new JButton("Volver");
+        btnVolver.setBounds(99, 338, 89, 23);
+        btnVolver.addActionListener(this);
+        contentPane.add(btnVolver);
 
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -173,7 +185,7 @@ public class UserDetails extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == btnVolver) {
-			this.dispose();
+            this.dispose();
         }
     }
 }

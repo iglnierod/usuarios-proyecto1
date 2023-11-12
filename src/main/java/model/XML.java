@@ -30,6 +30,7 @@ public class XML {
             createElementWithValue(doc, userElement, "nombre", user.getName());
             createElementWithValue(doc, userElement, "edad", String.valueOf(user.getAge()));
             createElementWithValue(doc, userElement, "email", user.getEmail());
+            createElementWithValue(doc, userElement, "image", user.getImagePath());
 
             // Write the DOM document to the provided file with pretty-print format
             try (FileOutputStream output = new FileOutputStream(file)) {
@@ -59,6 +60,7 @@ public class XML {
                 createElementWithValue(doc, userElement, "nombre", user.getName());
                 createElementWithValue(doc, userElement, "edad", String.valueOf(user.getAge()));
                 createElementWithValue(doc, userElement, "email", user.getEmail());
+                createElementWithValue(doc, userElement, "image", user.getImagePath());
             }
 
             // Write the DOM document to the provided file

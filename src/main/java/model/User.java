@@ -3,15 +3,9 @@ package model;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 public class User implements Serializable {
-    private static final String RESOURCES_PATH = new File("").getAbsolutePath() + "\\src\\main\\java\\resources\\images\\";
     private String name;
     private String passwordHash;
     private int age;
@@ -68,6 +62,10 @@ public class User implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getImagePath() {
+        return image.getAbsolutePath();
     }
 
     public File getImage() {

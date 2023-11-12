@@ -43,19 +43,6 @@ public class UserCreate extends WindowListener implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
 
-//        try {
-//            File image = new File("png400.png");
-//            String inputImagePath = image.getAbsolutePath();
-//            String outputImagePath = new File("").getAbsolutePath() + "100.png";
-//            Image.resize(inputImagePath, outputImagePath, 100, 100);
-//            BufferedImage myPicture = ImageIO.read(new File(outputImagePath));
-//            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-//            picLabel.setBounds(45, 350, 100, 100);
-//            contentPane.add(picLabel);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         etiquetaCrearUsuario = new JLabel("CREAR USUARIO");
         etiquetaCrearUsuario.setBounds(80, 11, 154, 20);
         etiquetaCrearUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -173,10 +160,11 @@ public class UserCreate extends WindowListener implements ActionListener {
 
             // Add user to App
             model.User user = new model.User(name, String.valueOf(pwd), age, mail);
+            File userImage = null;
             if (!textoImagen.getText().isEmpty()) {
-                user.setImage(new File(textoImagen.getText()));
+                userImage = new File(textoImagen.getText());
             }
-            if (!this.app.addUser(user)) {
+            if (!this.app.addUser(user, userImage)) {
                 JOptionPane.showMessageDialog(this, "No se ha podido crear el usuario. El usuario ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -187,7 +175,6 @@ public class UserCreate extends WindowListener implements ActionListener {
         if (e.getSource() == btnImagen) {
             System.out.println("Subir imagen de usuario.");
             JFileChooser fileChooser = new JFileChooser();
-//            fileChooser.setSelectedFile(new File(textoNombre.getText() + ".png"));
             int returnValue = fileChooser.showOpenDialog(null);
 
             if (returnValue == JFileChooser.APPROVE_OPTION) {
