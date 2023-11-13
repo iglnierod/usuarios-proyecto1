@@ -22,6 +22,7 @@ public class ZIP {
         app.exportAllUsersToPDF(new File(users, "users.pdf"));
         app.exportAllUsersToXLSX(new File(users, "users.xlsx"));
         app.exportAllUsersToSQL(new File(users, "users.sql"));
+        app.exportAllUsersToHTML(new File(users, "users.html"));
 
         try {
             file.createNewFile();

@@ -3,9 +3,6 @@ package model;
 import gui.Login;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 public class App {
     private Users users;
@@ -99,7 +96,7 @@ public class App {
         HTML.userToHTML(session.getUser(), file);
     }
 
-    public void exportUsersToHTML(File file) {
+    public void exportAllUsersToHTML(File file) {
         HTML.usersToHTML(this.users, file);
     }
 
