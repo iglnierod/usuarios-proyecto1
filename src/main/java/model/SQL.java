@@ -21,8 +21,7 @@ public class SQL {
                     + user.getPasswordHash() + "\", "
                     + user.getAge() + ", \""
                     + user.getEmail() + "\", \""
-                    // TODO: exportar imagen con /
-                    + user.getImagePath() + "\");\n");
+                    + user.getImagePath().replaceAll(File.pathSeparator, "/") + "\");\n");
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {

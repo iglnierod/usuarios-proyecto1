@@ -70,6 +70,7 @@ public class XLSX {
 
         try (FileOutputStream writer = new FileOutputStream(file)) {
             workbook.write(writer);
+            System.out.println("XLSX generado con éxito.");
         } catch (IOException e) {
             System.err.println("No se pudo exportar a XLSX");
         }

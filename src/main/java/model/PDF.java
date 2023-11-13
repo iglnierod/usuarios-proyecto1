@@ -1,5 +1,8 @@
 package model;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -11,6 +14,8 @@ import java.io.File;
 public class PDF {
     public static void userToPDF(User user, File file) {
         try {
+            Logger.getRootLogger().setLevel(Level.FATAL);
+            BasicConfigurator.configure();
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
@@ -48,6 +53,9 @@ public class PDF {
 
     public static void allUsersToPDF(Users users, File file) {
         try {
+            Logger.getRootLogger().setLevel(Level.FATAL);
+            BasicConfigurator.configure();
+            
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);

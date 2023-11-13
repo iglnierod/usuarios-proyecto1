@@ -33,6 +33,7 @@ public class HTML {
                 ).render();
 
         writeToFile(html, file);
+        System.out.println("HTML generado con éxito.");
     }
 
     public static void usersToHTML(Users users, File file) {
@@ -42,8 +43,8 @@ public class HTML {
                                 title("users")
                         ),
                         body(
-                                users.getAllUsers().stream().map(user ->
-                                        ul(
+                                users.getAllUsers().stream().map(
+                                        user -> ul(
                                                 li("Name: " + user.getName()),
                                                 li("Age: " + user.getAge()),
                                                 li("Email: " + user.getEmail()),
@@ -55,6 +56,7 @@ public class HTML {
                 ).render();
 
         writeToFile(html, file);
+        System.out.println("HTML generado con éxito.");
     }
 
     private static void writeToFile(String html, File file) {

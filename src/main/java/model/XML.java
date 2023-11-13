@@ -36,6 +36,7 @@ public class XML {
             try (FileOutputStream output = new FileOutputStream(file)) {
                 writeXml(doc, output);
             }
+            System.out.println("XML generado con éxito.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,6 +68,7 @@ public class XML {
             try (FileOutputStream output = new FileOutputStream(file)) {
                 writeXml(doc, output);
             }
+            System.out.println("XML generado con éxito.");
         } catch (Exception e) {
             System.err.println("No se ha podido exportar a XML");
         }

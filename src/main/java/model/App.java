@@ -100,6 +100,14 @@ public class App {
         HTML.usersToHTML(this.users, file);
     }
 
+    public void exportUserToDOCX(File file) {
+        DOCX.userToDOCX(session.getUser(), file);
+    }
+
+    public void exportAllUsersToDOCX(File file) {
+        DOCX.usersToDOCX(this.users, file);
+    }
+
     private void saveUsers() {
         FileHandler.saveUsers(this.users);
     }

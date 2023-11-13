@@ -15,6 +15,7 @@ public class CSV {
             csvPrinter.printRecord("Name", "Age", "Email", "Image");
             csvPrinter.printRecord(user.getName(), user.getAge(), user.getEmail(), user.getImagePath());
             csvPrinter.flush();
+            System.out.println("CSV generado con éxito.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -27,6 +28,7 @@ public class CSV {
             for (User user : users.getAllUsers()) {
                 csvPrinter.printRecord(user.getName(), user.getAge(), user.getEmail(), user.getImagePath());
             }
+            System.out.println("CSV generado con éxito.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

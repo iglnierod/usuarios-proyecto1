@@ -9,8 +9,6 @@ import java.io.IOException;
 
 public class JSON {
     public static void userToJSON(User user, File file) {
-        System.out.println("Exportando...");
-
         JSONObject jsonUser = new JSONObject();
         jsonUser.put("nombre", user.getName());
         jsonUser.put("edad", user.getAge());
@@ -22,12 +20,11 @@ public class JSON {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Archivo JSON creado: " + jsonUser);
+
+        System.out.println("JSON generado con éxito.");
     }
 
     public static void allUsersToJSON(Users users, File file) {
-        System.out.println("Exportando todos los usuarios...");
-
         JSONArray usersArray = new JSONArray();
         for (User user : users.getAllUsers()) {
             JSONObject jsonUser = new JSONObject();
@@ -43,6 +40,6 @@ public class JSON {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Archivo JSON creado con todos los usuarios");
+        System.out.println("JSON generado con éxito.");
     }
 }
