@@ -1,16 +1,11 @@
 package model;
 
 import j2html.tags.ContainerTag;
-import j2html.tags.DomContent;
-import j2html.tags.specialized.UlTag;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static j2html.TagCreator.*;
 
@@ -26,9 +21,9 @@ public class HTML {
                                         li("Name: " + user.getName()),
                                         li("Age: " + user.getAge()),
                                         li("Email: " + user.getEmail()),
-                                        li("Image: " + user.getImagePath())
+                                        li("Image: " + user.getImageName())
                                 ),
-                                img().withSrc(user.getImagePath())
+                                img().withSrc(user.getImageName())
                         )
                 ).render();
 
@@ -48,7 +43,7 @@ public class HTML {
                                                 li("Name: " + user.getName()),
                                                 li("Age: " + user.getAge()),
                                                 li("Email: " + user.getEmail()),
-                                                li("Image: " + user.getImagePath()),
+                                                li("Image: " + user.getImageName()),
                                                 img().withSrc(user.getImagePath()).withStyle("list-style-type: none;")
                                         )
                                 ).toArray(ContainerTag[]::new)

@@ -13,7 +13,7 @@ public class JSON {
         jsonUser.put("nombre", user.getName());
         jsonUser.put("edad", user.getAge());
         jsonUser.put("email", user.getEmail());
-        jsonUser.put("image", user.getImagePath());
+        jsonUser.put("image", user.getImageName());
 
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(jsonUser.toJSONString());
@@ -31,7 +31,7 @@ public class JSON {
             jsonUser.put("nombre", user.getName());
             jsonUser.put("edad", user.getAge());
             jsonUser.put("email", user.getEmail());
-            jsonUser.put("image", user.getImagePath());
+            jsonUser.put("image", user.getImageName());
             usersArray.add(jsonUser);
         }
 

@@ -64,6 +64,10 @@ public class User implements Serializable {
         return name;
     }
 
+    public String getImageName() {
+        return image.getName();
+    }
+
     public String getImagePath() {
         return image.getAbsolutePath();
     }

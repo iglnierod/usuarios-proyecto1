@@ -62,7 +62,7 @@ public class XLSX {
             cell.setCellStyle(style);
 
             cell = row.createCell(3);
-            cell.setCellValue(user.getImagePath());
+            cell.setCellValue(user.getImageName());
             cell.setCellStyle(style);
 
             rowIndex++;

@@ -27,7 +27,7 @@ public class DOCX {
             mainDocumentPart.addParagraphOfText("Name: " + user.getName());
             mainDocumentPart.addParagraphOfText("Age: " + user.getAge());
             mainDocumentPart.addParagraphOfText("Email: " + user.getEmail());
-            mainDocumentPart.addParagraphOfText("Image: " + user.getImagePath());
+            mainDocumentPart.addParagraphOfText("Image: " + user.getImageName());
             byte[] fileContent = Files.readAllBytes(user.getImage().toPath());
             BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wordPackage, fileContent);
             Inline inline = imagePart.createImageInline("image", "user image", 1, 2, false);
@@ -45,7 +45,6 @@ public class DOCX {
 
     // source: https://www.baeldung.com/docx4j
     public static void usersToDOCX(Users users, File file) {
-        // TODO: export user list to DOCX
         try {
             Logger.getRootLogger().setLevel(Level.FATAL);
             BasicConfigurator.configure();
@@ -58,7 +57,7 @@ public class DOCX {
                 mainDocumentPart.addParagraphOfText("Name: " + user.getName());
                 mainDocumentPart.addParagraphOfText("Age: " + user.getAge());
                 mainDocumentPart.addParagraphOfText("Email: " + user.getEmail());
-                mainDocumentPart.addParagraphOfText("Image: " + user.getImagePath());
+                mainDocumentPart.addParagraphOfText("Image: " + user.getImageName());
 
                 mainDocumentPart.addParagraphOfText("\n");
 

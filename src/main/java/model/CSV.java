@@ -13,7 +13,7 @@ public class CSV {
         try (BufferedWriter writer = Files.newBufferedWriter(file.toPath());
              CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
             csvPrinter.printRecord("Name", "Age", "Email", "Image");
-            csvPrinter.printRecord(user.getName(), user.getAge(), user.getEmail(), user.getImagePath());
+            csvPrinter.printRecord(user.getName(), user.getAge(), user.getEmail(), user.getImageName());
             csvPrinter.flush();
             System.out.println("CSV generado con éxito.");
         } catch (IOException e) {
@@ -26,7 +26,7 @@ public class CSV {
              CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
             csvPrinter.printRecord("Name", "Age", "Email", "Image");
             for (User user : users.getAllUsers()) {
-                csvPrinter.printRecord(user.getName(), user.getAge(), user.getEmail(), user.getImagePath());
+                csvPrinter.printRecord(user.getName(), user.getAge(), user.getEmail(), user.getImageName());
             }
             System.out.println("CSV generado con éxito.");
         } catch (IOException e) {

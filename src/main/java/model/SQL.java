@@ -21,7 +21,7 @@ public class SQL {
                     + user.getPasswordHash() + "\", "
                     + user.getAge() + ", \""
                     + user.getEmail() + "\", \""
-                    + user.getImagePath().replaceAll(File.pathSeparator, "/") + "\");\n");
+                    + user.getImageName().replaceAll(File.pathSeparator, "/") + "\");\n");
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
